@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+var proxy = require('html2canvas-proxy');
 const app = express();
 
 const port = 5000;
@@ -7,26 +8,24 @@ const port = 5000;
 app.use(express.urlencoded({ extended: false }));
 
 // Home route
-app.get("/", (req, res) => {
-  res.send("Welcome to a basic express App");
-});
+app.use('/', proxy());
 
 // Mock API
-app.get("/users", (req, res) => {
-  res.json([
-    { name: "William", location: "Abu Dhabi" },
-    { name: "Chris", location: "Vegas" }
-  ]);
+app.get('/users', (req, res) => {
+	res.json([
+		{ name: 'William', location: 'Abu Dhabi' },
+		{ name: 'Chris', location: 'Vegas' }
+	]);
 });
 
-app.post("/user", (req, res) => {
-  const { name, location } = req.body;
+app.post('/user', (req, res) => {
+	const { name, location } = req.body;
 
-  res.send({ status: "User created", name, location });
+	res.send({ status: 'User created', name, location });
 });
 
 // Listen on port 5000
 app.listen(port, () => {
-  console.log(`Server is booming on port 5000
+	console.log(`Server is booming on port 5000
 Visit http://localhost:5000`);
 });
